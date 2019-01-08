@@ -1,5 +1,7 @@
 package com.springboot.restapi.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,6 @@ public class ProductService {
 	}
 
 	public Product getProductById(int id) {
-		// TODO Auto-generated method stub
 		ProductEntity pEntity = productDao.getProductById(id);
 		if (pEntity != null) {
 			Product prod = new Product();
@@ -36,6 +37,11 @@ public class ProductService {
 			prod.setName(pEntity.getName());
 			return prod;
 		}
+		return null;
+	}
+
+	public List<Product> getAllProducts() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,5 +1,7 @@
 package com.springboot.restapi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +46,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "product/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Product getAllProducts(@PathVariable("id") int id) {
-		Product product = productService.getProductById(id);
-		return new Product();
+		List<Product> productList = productService.getAllProducts();
+		return productList;
 	}
 }
