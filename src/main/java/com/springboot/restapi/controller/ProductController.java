@@ -45,7 +45,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "product/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Product getAllProducts(@PathVariable("id") int id) {
+	public List<Product> getAllProducts(@PathVariable("id") int id) {
 		List<Product> productList = productService.getAllProducts();
 		return productList;
 	}
