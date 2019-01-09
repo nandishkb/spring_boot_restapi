@@ -40,13 +40,23 @@ public class ProductController {
 		if (product != null) {
 			return new ResponseEntity<>(product, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return ResponseEntity.notFound().build();
 		}
 	}
 	
 	@RequestMapping(value = "product/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Product> getAllProducts(@PathVariable("id") int id) {
+	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> productList = productService.getAllProducts();
-		return productList;
+		return new ResponseEntity<>(productList, HttpStatus.NOT_FOUND);
+	}
+	
+	@RequestMapping(value = "product/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Product> deleteProductById(@PathVariable("id") int id) {
+		Product product = productService.deleteProductById(id);
+		if (product != null) {
+			return new ResponseEntity<>(product, HttpStatus.OK);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }

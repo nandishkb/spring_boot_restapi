@@ -1,5 +1,7 @@
 package com.springboot.restapi.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,7 +15,7 @@ import com.springboot.restapi.pojos.Product;
 
 @Service("productService")
 public class ProductService {
-	
+
 	@Autowired
 	private ProductDao productDao;
 
@@ -41,8 +43,31 @@ public class ProductService {
 	}
 
 	public List<Product> getAllProducts() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ProductEntity> prodEntityList = productDao.getAllProducts();
+		List<Product> prodList = new ArrayList<>();
+		for (Iterator<ProductEntity> iterator = prodEntityList.iterator(); iterator.hasNext();) {
+			ProductEntity productEntity = (ProductEntity) iterator.next();
+			Product prod = new Product();
+			prod.setCategoryId(productEntity.getCategoryId());
+			prod.setCost(productEntity.getCost());
+			prod.setId(productEntity.getId());
+			prod.setName(productEntity.getName());
+			prodList.add(prod);
+		}
+		return prodList;
+	}
+
+	public Product deleteProductById(int id) {
+		ProductEntity productEntity = productDao.deleteProductById(id);
+		Product prod = null;
+		if (productEntity != null) {
+			prod = new Product();
+			prod.setCategoryId(productEntity.getCategoryId());
+			prod.setCost(productEntity.getCost());
+			prod.setId(productEntity.getId());
+			prod.setName(productEntity.getName());
+		}
+		return prod;
 	}
 
 }
