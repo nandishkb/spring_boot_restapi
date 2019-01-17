@@ -22,7 +22,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@RequestMapping(value = "welcome", method = RequestMethod.GET)
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String welcomeMessage() {
 		return "Welcome to Product REST API Version 1.0";
 	}
@@ -44,10 +44,11 @@ public class ProductController {
 		}
 	}
 	
-	@RequestMapping(value = "product/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/product", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> productList = productService.getAllProducts();
-		return new ResponseEntity<>(productList, HttpStatus.NOT_FOUND);
+		System.out.println("ProductController.getAllProducts()");
+		return new ResponseEntity<>(productList, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "product/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
